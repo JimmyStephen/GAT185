@@ -19,13 +19,14 @@ public class Health : MonoBehaviour
         health -= damage;
         if(tag == "Player")
         {
-            //GameManager.Instance.Health -= damage;
+            GameManager.Instance.Health -= damage;
         }
+
         if(health <= 0)
         {
-            if (tag != "Projectile" && tag != "Player")
+            if(TryGetComponent<IDestructable>(out IDestructable destructable))
             {
-                GameManager.Instance.Score += 100;
+                destructable.Destroyed();
             }
 
             if(deathPrefabs != null)
@@ -34,11 +35,6 @@ public class Health : MonoBehaviour
                 {
                     Instantiate(deathPrefab, transform.position, transform.rotation);
                 }
-            }
-
-            if(tag == "Player")
-            {
-                GameManager.Instance.OnStartTitle();
             }
 
             if (destroyOnDeath)

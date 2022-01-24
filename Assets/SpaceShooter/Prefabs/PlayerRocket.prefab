@@ -18,8 +18,8 @@ GameObject:
   - component: {fileID: 2741261207447519363}
   - component: {fileID: 659665104530220768}
   - component: {fileID: 6896123864872210655}
-  m_Layer: 0
-  m_Name: Rocket
+  m_Layer: 6
+  m_Name: PlayerRocket
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -278,9 +278,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7310340499199681726}
     m_Modifications:
+    - target: {fileID: 1063051830369628, guid: bb98861c48ad2024ca93498c7dd93a6c, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1901245927194888, guid: bb98861c48ad2024ca93498c7dd93a6c, type: 3}
       propertyPath: m_Name
       value: LargeFlames
+      objectReference: {fileID: 0}
+    - target: {fileID: 1901245927194888, guid: bb98861c48ad2024ca93498c7dd93a6c, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4430340635691708, guid: bb98861c48ad2024ca93498c7dd93a6c, type: 3}
       propertyPath: m_RootOrder

@@ -8,6 +8,7 @@ public class BoxSpawner : MonoBehaviour
     [SerializeField] GameObject[] spawnPrefabs;
     [SerializeField] float minTime;
     [SerializeField] float maxTime;
+    [SerializeField] bool active = true;
 
     BoxCollider boxCollider = null;
     float timer;
@@ -17,11 +18,14 @@ public class BoxSpawner : MonoBehaviour
     {
         boxCollider = GetComponent<BoxCollider>();
         timer = Random.Range(minTime, maxTime);
+        GameManager.Instance.startGameEvent += OnStartGame;
+        GameManager.Instance.stopGameEvent  += OnStopGame;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!active) return;
         timer -= Time.deltaTime;
         if(timer <= 0)
         {
@@ -29,6 +33,16 @@ public class BoxSpawner : MonoBehaviour
 
             Instantiate(spawnPrefabs[Random.Range(0, spawnPrefabs.Length)], GetRandomPointInBoxCollider(), transform.rotation);
         }
+    }
+
+    public void OnStartGame()
+    {
+        active = true;
+    }
+
+    public void OnStopGame()
+    {
+        active = false;
     }
 
     Vector3 GetRandomPointInBoxCollider()

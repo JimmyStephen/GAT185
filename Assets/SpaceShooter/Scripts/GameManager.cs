@@ -15,6 +15,7 @@ public class GameManager : Singleton<GameManager>
 	[SerializeField] Transform playerSpawn;
 	[SerializeField] GameObject titleScreen;
 	[SerializeField] TMP_Text scoreUI;
+	[SerializeField] TMP_Text healthUI;
 
 	public delegate void GameEvent();
 
@@ -22,6 +23,7 @@ public class GameManager : Singleton<GameManager>
 	public event GameEvent stopGameEvent;
 
 	int score = 0;
+	float healthUIF = 100;
 	State state = State.TITLE;
 
 	public int Score
@@ -33,6 +35,18 @@ public class GameManager : Singleton<GameManager>
 			scoreUI.text = score.ToString();
 		}
 	}
+
+	public float Health
+	{
+		get { return healthUIF; }
+		set
+		{
+			healthUIF = value;
+			healthUI.text = healthUIF.ToString();
+		}
+	}
+
+
 	public int Lives { get; set; }
 
 
@@ -41,7 +55,13 @@ public class GameManager : Singleton<GameManager>
 	{
 		state = State.GAME;
 		titleScreen.SetActive(false);
-		startGameEvent();
+		score = 0;
+		scoreUI.text = score.ToString();
+		healthUIF = 100;
+		healthUI.text = healthUIF.ToString();
+		Instantiate(playerPrefab, playerSpawn);
+
+		startGameEvent?.Invoke();
 	}
 
 	public void OnStartTitle()

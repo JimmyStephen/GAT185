@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AstroidSmall
       objectReference: {fileID: 0}
+    - target: {fileID: 1529249800494676, guid: 4d5c26a5782d9294eaed6fbde168b364, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4826561615208304, guid: 4d5c26a5782d9294eaed6fbde168b364, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -76,6 +80,22 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1529249800494676, guid: 4d5c26a5782d9294eaed6fbde168b364, type: 3}
   m_PrefabInstance: {fileID: 8725390966116300795}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &-1628246164968012090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8724525823020902831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 642152585dbe0c845a8de3aa596f04a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spaceWeapon: {fileID: 0}
+  minFireTime: 0
+  maxFireTime: 0
+  points: 0
 --- !u!114 &631262289090868813
 MonoBehaviour:
   m_ObjectHideFlags: 0
