@@ -20,10 +20,13 @@ public class SpacePlayer : MonoBehaviour, IDestructable
         {
             GetComponent<SpaceWeapon>().Fire();
         }
+
+        GameManager.Instance.playerHealth = GetComponent<Health>().health;
     }
 
     public void Destroyed()
     {
-        GameManager.Instance.OnStartTitle();
+        GameManager.Instance.playerHealth = 0;
+        GameManager.Instance.OnPlayerDead();
     }
 }

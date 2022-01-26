@@ -18,11 +18,12 @@ public class SpaceEnemy : MonoBehaviour, IDestructable
 
     private void Update()
     {
+        if (!spaceWeapon) return;
         timer -= Time.deltaTime;
         if(timer <= 0)
         {
             timer = Random.Range(minFireTime, maxFireTime);
-            GetComponent<SpaceWeapon>().Fire();
+            spaceWeapon.Fire();
         }
         
     }

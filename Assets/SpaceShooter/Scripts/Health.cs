@@ -17,11 +17,6 @@ public class Health : MonoBehaviour
     public void Damage(float damage)
     {
         health -= damage;
-        if(tag == "Player")
-        {
-            GameManager.Instance.Health -= damage;
-        }
-
         if(health <= 0)
         {
             if(TryGetComponent<IDestructable>(out IDestructable destructable))
