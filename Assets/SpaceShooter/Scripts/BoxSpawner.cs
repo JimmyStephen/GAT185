@@ -10,6 +10,8 @@ public class BoxSpawner : MonoBehaviour
     [SerializeField] float maxTime;
     [SerializeField] bool active = true;
 
+    public float timeModifier = 1;
+
     BoxCollider boxCollider = null;
     float timer;
 
@@ -17,7 +19,7 @@ public class BoxSpawner : MonoBehaviour
     void Start()
     {
         boxCollider = GetComponent<BoxCollider>();
-        timer = Random.Range(minTime, maxTime);
+        timer = Random.Range(minTime, maxTime) * timeModifier;
         GameManager.Instance.startGameEvent += OnStartGame;
         GameManager.Instance.stopGameEvent  += OnStopGame;
     }

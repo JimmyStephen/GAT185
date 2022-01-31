@@ -36,7 +36,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5287313324458341513}
+  - {fileID: 7685396555161312508}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -271,7 +271,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1001 &5291714355951599157
+--- !u!1001 &7685320392360433216
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -280,7 +280,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1063051830369628, guid: bb98861c48ad2024ca93498c7dd93a6c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1901245927194888, guid: bb98861c48ad2024ca93498c7dd93a6c, type: 3}
       propertyPath: m_Name
@@ -288,7 +288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1901245927194888, guid: bb98861c48ad2024ca93498c7dd93a6c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4430340635691708, guid: bb98861c48ad2024ca93498c7dd93a6c, type: 3}
       propertyPath: m_RootOrder
@@ -380,8 +380,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb98861c48ad2024ca93498c7dd93a6c, type: 3}
---- !u!4 &5287313324458341513 stripped
+--- !u!4 &7685396555161312508 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4430340635691708, guid: bb98861c48ad2024ca93498c7dd93a6c, type: 3}
-  m_PrefabInstance: {fileID: 5291714355951599157}
+  m_PrefabInstance: {fileID: 7685320392360433216}
   m_PrefabAsset: {fileID: 0}
