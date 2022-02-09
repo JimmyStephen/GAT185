@@ -36,6 +36,9 @@ public class Health : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+        }else if(health >= maxHealth)
+        {
+            health = maxHealth;
         }
     }
 }

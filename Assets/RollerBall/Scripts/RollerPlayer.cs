@@ -37,6 +37,8 @@ public class RollerPlayer : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
+        RollerGameManager.Instance.playerHealth = GetComponent<Health>().health;
+
     }
 
     //WILL happen the same number of times per second regardless of framerate
