@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
     [SerializeField] GameObject[] deathPrefabs;
     [SerializeField] bool destroyOnDeath = true;
     [SerializeField] float maxHealth = 100;
+    [SerializeField] bool destroyRoot = false;
     public float health { get; set; }
     // Start is called before the first frame update
     void Start()
@@ -34,7 +35,8 @@ public class Health : MonoBehaviour
 
             if (destroyOnDeath)
             {
-                Destroy(gameObject);
+                if (destroyRoot) Destroy(gameObject.transform.root.gameObject);
+                else Destroy(gameObject);
             }
         }else if(health >= maxHealth)
         {

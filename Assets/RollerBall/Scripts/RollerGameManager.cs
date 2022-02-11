@@ -17,11 +17,13 @@ public class RollerGameManager : Singleton<RollerGameManager>
 
 	[SerializeField] GameObject playerPrefab;
 	[SerializeField] Transform playerSpawn;
+	[SerializeField] GameObject mainCamera;
 
 	[SerializeField] GameObject titleScreen;
 	[SerializeField] GameObject gameoverScreen;
 	[SerializeField] TMP_Text scoreUI;
 	[SerializeField] TMP_Text livesUI;
+	[SerializeField] TMP_Text timeUI;
 	[SerializeField] Slider healthBarUI;
 	public float playerHealth { set { healthBarUI.value = value; } }
 
@@ -56,28 +58,44 @@ public class RollerGameManager : Singleton<RollerGameManager>
 		}
 	}
 
-    private void Update()
+	public float GameTime
+	{
+		get { return gameTimer; }
+		set
+		{
+			gameTimer = value;
+			timeUI.text = "<mspace=mspace=36>" + gameTimer.ToString("0.0") + "</mspace>";
+		}
+	}
+
+	private void Update()
     {
 		stateTimer -= Time.deltaTime;
+
         switch (state)
         {
             case State.TITLE:
                 break;
             case State.PLAYER_START:
 				DestroyAllEnemies();
-				//Instantiate(playerPrefab, playerSpawn.position, playerSpawn.rotation);
+				Instantiate(playerPrefab, playerSpawn.position, playerSpawn.rotation);
+				mainCamera.SetActive(false);
 				startGameEvent?.Invoke();
 				state = State.GAME;
+				GameTime = 60;
 				break;
             case State.GAME:
-				gameTimer += Time.deltaTime;
-				if(gameTimer >= 5)
+				GameTime -= Time.deltaTime;
+				if(GameTime <= 0)
                 {
-					gameTimer = 0;
+					GameTime = 0;
+					state = State.GAME_OVER;
+					stateTimer = 5;
                 }
                 break;
             case State.PLAYER_DEAD:
-				if(stateTimer <= 0)
+				mainCamera.SetActive(true);
+				if (stateTimer <= 0)
                 {
 					state = State.PLAYER_START;
                 }
