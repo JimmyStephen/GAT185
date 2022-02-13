@@ -12,7 +12,8 @@ public class RollerGameManager : Singleton<RollerGameManager>
 		PLAYER_START,
 		GAME,
 		PLAYER_DEAD,
-		GAME_OVER
+		GAME_OVER,
+		PLAYER_WIN
 	}
 
 	[SerializeField] GameObject playerPrefab;
@@ -20,7 +21,8 @@ public class RollerGameManager : Singleton<RollerGameManager>
 	[SerializeField] GameObject mainCamera;
 
 	[SerializeField] GameObject titleScreen;
-	[SerializeField] GameObject gameoverScreen;
+	[SerializeField] GameObject gameLostScreen;
+	[SerializeField] GameObject gameWonScreen;
 	[SerializeField] TMP_Text scoreUI;
 	[SerializeField] TMP_Text livesUI;
 	[SerializeField] TMP_Text timeUI;
@@ -47,7 +49,6 @@ public class RollerGameManager : Singleton<RollerGameManager>
 			scoreUI.text = "SCORE: " + score.ToString("D2");
 		}
 	}
-
 	public int Lives
 	{
 		get { return lives; }
@@ -57,7 +58,6 @@ public class RollerGameManager : Singleton<RollerGameManager>
 			livesUI.text = "LIVES: " + lives.ToString("D2");
 		}
 	}
-
 	public float GameTime
 	{
 		get { return gameTimer; }
@@ -67,6 +67,7 @@ public class RollerGameManager : Singleton<RollerGameManager>
 			timeUI.text = "<mspace=mspace=36>" + gameTimer.ToString("0.0") + "</mspace>";
 		}
 	}
+
 
 	private void Update()
     {
@@ -86,11 +87,13 @@ public class RollerGameManager : Singleton<RollerGameManager>
 				break;
             case State.GAME:
 				GameTime -= Time.deltaTime;
-				if(GameTime <= 0)
+				if(GameTime <= 0 || Lives <= 0)
                 {
-					GameTime = 0;
-					state = State.GAME_OVER;
-					stateTimer = 5;
+					OnGameEnd(false);
+                }
+				if(Score >= 25)
+                {
+					OnGameEnd(true);
                 }
                 break;
             case State.PLAYER_DEAD:
@@ -104,7 +107,15 @@ public class RollerGameManager : Singleton<RollerGameManager>
 				if (stateTimer <= 0)
 				{
 					state = State.TITLE;
-					gameoverScreen.SetActive(false);
+					gameLostScreen.SetActive(false);
+					titleScreen.SetActive(true);
+				}
+				break;
+			case State.PLAYER_WIN:
+				if (stateTimer <= 0)
+				{
+					state = State.TITLE;
+					gameWonScreen.SetActive(false);
 					titleScreen.SetActive(true);
 				}
 				break;
@@ -113,11 +124,34 @@ public class RollerGameManager : Singleton<RollerGameManager>
         }
     }
 
+	public void OnGameEnd(bool playerWin)
+    {
+		GameTime = 0;
+		mainCamera.SetActive(true);
+		if (playerWin)
+        {
+			gameWonScreen.SetActive(true);
+			Destroy(FindObjectOfType<RollerPlayer>().transform.root.gameObject);
+			state = State.PLAYER_WIN;
+        }
+        else
+        {
+			gameLostScreen.SetActive(true);
+			var playerTemp = FindObjectOfType<RollerPlayer>();
+			if (playerTemp)
+			{
+				Destroy(playerTemp.transform.root.gameObject);
+			}
+			state = State.GAME_OVER;
+		}
+		stateTimer = 5;
+	}
+
     public void OnStartGame()
 	{
 		state = State.PLAYER_START;
 		Score = 0;
-		Lives = 3;
+		Lives = 1;
 		gameTimer = 0;
 
 		titleScreen.SetActive(false);
@@ -135,17 +169,11 @@ public class RollerGameManager : Singleton<RollerGameManager>
 		Lives -= 1;
 		if (lives <= 0)
 		{
+			mainCamera.SetActive(true);
 			state = State.GAME_OVER;
 			stateTimer = 5;
-
-			gameoverScreen.SetActive(true);
+			//gameLostScreen.SetActive(true);
         }
-        else
-        {
-			state = State.PLAYER_DEAD;
-			stateTimer = 3;
-        }
-
 		stopGameEvent?.Invoke();
 	}
 
