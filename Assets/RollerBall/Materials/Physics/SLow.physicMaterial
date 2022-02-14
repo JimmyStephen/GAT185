@@ -7,8 +7,8 @@ PhysicMaterial:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SLow
-  dynamicFriction: 20000
-  staticFriction: 20000
+  dynamicFriction: 10
+  staticFriction: 10
   bounciness: 1
   frictionCombine: 3
   bounceCombine: 3
