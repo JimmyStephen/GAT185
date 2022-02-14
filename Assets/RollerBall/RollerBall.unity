@@ -2438,7 +2438,7 @@ AudioSource:
   m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 94386375ddc0048409578a5ce96287e0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -12053,7 +12053,7 @@ MonoBehaviour:
   - {fileID: 3648477626699880945, guid: 407b9d39942f2c042942413a34a5fbdb, type: 3}
   minTime: 1
   maxTime: 5
-  active: 1
+  active: 0
   timeModifier: 1
 --- !u!65 &1691264938
 BoxCollider:
@@ -14745,7 +14745,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1902014502}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 215e92e46f34efa449113d52b163b631, type: 3}
@@ -16525,11 +16525,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7420954273081795021, guid: 1c08cc9fa6ccf984db52714c29448b14, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.14
+      value: 13.13
       objectReference: {fileID: 0}
     - target: {fileID: 7420954273081795021, guid: 1c08cc9fa6ccf984db52714c29448b14, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.75
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 7420954273081795021, guid: 1c08cc9fa6ccf984db52714c29448b14, type: 3}
       propertyPath: m_LocalRotation.w

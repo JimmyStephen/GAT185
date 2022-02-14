@@ -22,6 +22,8 @@ public class BoxSpawner : MonoBehaviour
         timer = Random.Range(minTime, maxTime) * timeModifier;
         GameManager.Instance.startGameEvent += OnStartGame;
         GameManager.Instance.stopGameEvent  += OnStopGame;
+        RollerGameManager.Instance.startGameEvent += OnStartGame;
+        RollerGameManager.Instance.stopGameEvent += OnStopGame;
     }
 
     // Update is called once per frame
