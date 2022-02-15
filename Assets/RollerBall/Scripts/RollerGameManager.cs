@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class RollerGameManager : Singleton<RollerGameManager>
 {
@@ -87,7 +88,7 @@ public class RollerGameManager : Singleton<RollerGameManager>
 				break;
             case State.GAME:
 				GameTime -= Time.deltaTime;
-				if(GameTime <= 0 || Lives <= 0)
+				if(GameTime <= 0)
                 {
 					OnGameEnd(false);
                 }
@@ -108,6 +109,7 @@ public class RollerGameManager : Singleton<RollerGameManager>
 				{
 					state = State.TITLE;
 					gameLostScreen.SetActive(false);
+					//SceneManager.LoadScene("RollerBall");
 					titleScreen.SetActive(true);
 				}
 				break;
@@ -116,6 +118,7 @@ public class RollerGameManager : Singleton<RollerGameManager>
 				{
 					state = State.TITLE;
 					gameWonScreen.SetActive(false);
+					//SceneManager.LoadScene("RollerBall");
 					titleScreen.SetActive(true);
 				}
 				break;
@@ -137,12 +140,12 @@ public class RollerGameManager : Singleton<RollerGameManager>
         else
         {
 			gameLostScreen.SetActive(true);
+			state = State.GAME_OVER;
 			var playerTemp = FindObjectOfType<RollerPlayer>();
 			if (playerTemp)
 			{
 				Destroy(playerTemp.transform.root.gameObject);
 			}
-			state = State.GAME_OVER;
 		}
 		stateTimer = 5;
 	}
@@ -172,7 +175,8 @@ public class RollerGameManager : Singleton<RollerGameManager>
 			mainCamera.SetActive(true);
 			state = State.GAME_OVER;
 			stateTimer = 5;
-			//gameLostScreen.SetActive(true);
+			GameTime = 0;
+			gameLostScreen.SetActive(true);
         }
 		stopGameEvent?.Invoke();
 	}
