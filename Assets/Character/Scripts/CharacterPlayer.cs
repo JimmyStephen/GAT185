@@ -7,37 +7,67 @@ public class CharacterPlayer : MonoBehaviour
 {
     [SerializeField] CharacterController controller;
     [SerializeField] Animator animator;
+    [SerializeField] Transform view;
     [SerializeField] float speed;
     [SerializeField] float jumpForce;
+    [SerializeField] float turnRate;
 
     Vector3 velocity = Vector3.zero;
+    float airTime = 0;
 
     void Update()
     {
-        if (controller.isGrounded && velocity.y < 0)
-        {
-            velocity.y = 0;
-        }
-
-        //Get Direction to Move
+        // xz movement
         Vector3 direction = Vector3.zero;
         direction.x = Input.GetAxis("Horizontal");
         direction.z = Input.GetAxis("Vertical");
+        direction = Vector3.ClampMagnitude(direction, 1);
 
+        // convert direction from world space to view space
+        Quaternion viewSpace = Quaternion.AngleAxis(view.rotation.eulerAngles.y, Vector3.up);
+        direction = viewSpace * direction;
 
-        //Set Movement
-        controller.Move(direction * speed * Time.deltaTime);
-        animator.SetFloat("Speed", controller.velocity.magnitude);
-        //Set Rotation
-        if(controller.velocity.magnitude > 0) transform.forward = controller.velocity;
+        // y movement
+        animator.SetBool("IsGrounded", controller.isGrounded);
+        if (controller.isGrounded)
+		{
+            airTime = 0;
+            if (velocity.y < 0) velocity.y = 0;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                velocity.y = jumpForce;
+            }
+        }
+        else
+		{
+            airTime += Time.deltaTime;
+		}
+        velocity += Physics.gravity * Time.deltaTime;
 
-        //Jump
-        if(controller.isGrounded && Input.GetButtonDown("Jump"))
+        // move character (xyz)
+        controller.Move(((direction * speed) + velocity) * Time.deltaTime);
+
+        // face direction
+        if (direction.magnitude > 0)
         {
-            velocity.y += jumpForce;
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction), turnRate * Time.deltaTime);
         }
 
-        velocity += Physics.gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        if (Input.GetButtonDown("Fire1")) animator.SetTrigger("Throw");
+		if (Input.GetButtonDown("Fire2")) animator.SetTrigger("Punch");
+		if (Input.GetButtonDown("Fire3")) animator.SetBool("IsArmed", !animator.GetBool("IsArmed"));
+
+        animator.SetFloat("Speed", (direction * speed).magnitude);
+        animator.SetFloat("VelocityY", velocity.y);
+        animator.SetFloat("AirTime", airTime);
+    }
+
+    private void OnGUI()
+    {
+        Vector2 screen = Camera.main.WorldToScreenPoint(transform.position);
+
+        GUI.color = Color.black;
+        GUI.Label(new Rect(screen.x, Screen.height - screen.y, 300, 20), controller.velocity.ToString());
+        GUI.Label(new Rect(screen.x, Screen.height - screen.y - 20, 300, 20), controller.isGrounded.ToString());
     }
 }
